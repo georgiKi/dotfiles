@@ -22,17 +22,17 @@ local config = {
     splitbelow = true,         -- force all horizontal splits to go below current window
     splitright = true,         -- force all vertical splits to go to the right of current window
     swapfile = false,          -- creates a swapfile
-    timeoutlen = 100,          -- time to wait for a mapped sequence to complete (in milliseconds)
+    timeoutlen = 400,          -- time to wait for a mapped sequence to complete (in milliseconds)
     undofile = true,           -- enable persistent undo
     updatetime = 200,          -- faster completion (4000ms default)
     writebackup = false,       -- if a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited
     expandtab = true,          -- convert tabs to spaces
-    shiftwidth = 4,            -- the number of spaces inserted for each indentation
-    tabstop = 4,               -- insert 2 spaces for a tab
+    shiftwidth = 2,            -- the number of spaces inserted for each indentation
+    tabstop = 2,               -- insert 2 spaces for a tab
     cursorline = false,        -- highlight the current line
     number = true,             -- set numbered lines
     relativenumber = false,    -- set relative numbered lines
-    numberwidth = 4,           -- set number column width to 2 {default 4}
+    numberwidth = 2,           -- set number column width to 2 {default 4}
     signcolumn = "yes",        -- always show the sign column, otherwise it would shift the text each time
     wrap = false,              -- display lines as one long line
     scrolloff = 8,
@@ -63,9 +63,20 @@ vim.diagnostic.config({
 vim.loader.enable()
 
 -- Highlight word occurences under cursor
-vim.cmd [[autocmd CursorHold * lua vim.lsp.buf.document_highlight()]]
-vim.cmd [[autocmd CursorHoldI * lua vim.lsp.buf.document_highlight()]]
-vim.cmd [[autocmd CursorMoved * lua vim.lsp.buf.clear_references()]]
+vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+    callback = function()
+        local clients = vim.lsp.get_clients({ bufnr = 0 })
+        for _, client in ipairs(clients) do
+            if client.supports_method("textDocument/documentHighlight") then
+                vim.lsp.buf.document_highlight()
+                return
+            end
+        end
+    end,
+})
+vim.api.nvim_create_autocmd("CursorMoved", {
+    callback = function() vim.lsp.buf.clear_references() end,
+})
 
 -- Fold settings
 vim.wo.foldmethod = "expr"

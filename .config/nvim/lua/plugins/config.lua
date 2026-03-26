@@ -11,6 +11,7 @@ do
         -- Essential
         require(essential .. "ai.avente"),
         require(essential .. "ai.copilot"),
+        require(essential .. "ai.opencode"),
         require(essential .. "lsp.hover"),
         require(essential .. "lsp.mason"),
         require(essential .. "lsp.mason_lspconfig"),

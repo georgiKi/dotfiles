@@ -11,6 +11,6 @@ return {
         show_symbol_details = false
     },
     artifacts = function()
-        utils.keymap("n", "<leader>o", ":Outline<cr>", { desc = "Outline Tree" })
+        utils.keymap("n", "<leader>O", ":Outline<cr>", { desc = "Outline Tree" })
     end
 }

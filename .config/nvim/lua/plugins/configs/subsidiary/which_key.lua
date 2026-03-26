@@ -5,18 +5,34 @@ return {
     lazy = true,
     event = "VeryLazy",
     config = {
+        preset = "modern",
+        delay = 400,
         icons = {
-            breadcrumb = "»", -- symbol used in the command line area that shows your active key combo
-            separator = "",   -- symbol used between a key and it's label
-            group = "+",      -- symbol prepended to a group
-            rules = false
+            breadcrumb = "»",
+            separator = "→",
+            group = " ",
+            rules = {},
+            colors = true,
         },
         keys = {
-            scroll_down = "<c-d>", -- binding to scroll down inside the popup
-            scroll_up = "<c-u>",   -- binding to scroll up inside the popup
+            scroll_down = "<c-d>",
+            scroll_up = "<c-u>",
         },
         layout = {
-            spacing = 6, -- spacing between columns
+            width = { min = 20, max = 40 },
+            spacing = 3,
         },
+        win = {
+            no_overlap = false,
+            col = math.huge,
+            row = math.huge,
+            width = { max = math.floor(vim.o.columns * 0.4) },
+            height = { max = 20 },
+            border = "rounded",
+            padding = { 1, 2 },
+            title = false,
+            wo = { winblend = 0 },
+        },
+        sort = { "local", "order", "group", "alphanum", "mod" },
     }
 }

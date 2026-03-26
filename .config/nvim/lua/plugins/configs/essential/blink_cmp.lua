@@ -5,6 +5,7 @@ return {
         'rafamadriz/friendly-snippets',
         "fang2hou/blink-copilot"
     },
+    build = "cargo build --release",
     priority = 950,
     enabled = true,
     lazy = true,
@@ -21,6 +22,13 @@ return {
             nerd_font_variant = 'mono'
         },
         completion = {
+            trigger = {
+                show_on_keyword = true,
+                show_on_insert_on_trigger_character = true,
+                show_in_snippet = true,
+                show_on_blocked_trigger_characters = {},
+            },
+            list = { max_items = 15 },
             menu = {
                 border = "rounded",
                 draw = { gap = 2 },
@@ -41,9 +49,12 @@ return {
                 copilot = {
                     score_offset = 100,
                     module = "blink-copilot",
+                    async = true,
+                    timeout_ms = 3000,
                 },
                 lsp = {
-                    score_offset = 90
+                    score_offset = 90,
+                    min_keyword_length = 0,
                 },
                 buffer = {
                     score_offset = 50
@@ -55,7 +66,7 @@ return {
 
             },
         },
-        fuzzy = { implementation = "lua" },
+        fuzzy = { implementation = "prefer_rust_with_warning" },
         signature = {
             enabled = false,
             window = {

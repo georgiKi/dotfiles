@@ -7,7 +7,8 @@ return {
     lazy = true,
     event = "LspAttach",
     config = {
-        max_width = 120
+        max_width = 120,
+        title = false,
     },
     artifacts = function()
         utils.keymap("n", "<leader>p", "<cmd> lua require('pretty_hover').hover()<CR>", { desc = "LSP Hover" })

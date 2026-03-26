@@ -12,6 +12,6 @@ return {
         log_level = "error",
     },
     artifacts = function ()
-        utils.keymap("n", "<leader>s", "<cmd>:SessionRestore<cr>", { desc = "Restore Previous Session" })
+        utils.keymap("n", "<leader>s", "<cmd>:AutoSession restore<cr>", { desc = "Restore Previous Session" })
     end
 }
