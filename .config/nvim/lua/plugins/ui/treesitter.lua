@@ -8,7 +8,7 @@ return {
   config = function()
     require("nvim-ts-autotag").setup()
     require("nvim-treesitter.configs").setup({
-      ensure_installed = { "c", "c_sharp", "lua", "vim", "regex", "javascript", "typescript", "tsx", "css", "scss", "html", "json" },
+      ensure_installed = { "c", "c_sharp", "lua", "vim", "regex", "javascript", "typescript", "tsx", "css", "scss", "html", "json", "markdown", "markdown_inline", "jsdoc" },
       sync_install = false,
       auto_install = true,
       ignore_install = {},

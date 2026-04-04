@@ -61,6 +61,16 @@ return {
         vim.api.nvim_set_hl(0, "LineNrBelow", { fg = "#363646", bg = "NONE" })
         vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "#dcd7ba", bg = "NONE", bold = true })
 
+        vim.api.nvim_set_hl(0, "@comment.documentation",         { fg = "#727169", italic = true })
+        vim.api.nvim_set_hl(0, "@keyword.jsdoc",                { fg = "#957fb8", bold = true })
+        vim.api.nvim_set_hl(0, "@type.jsdoc",                   { fg = "#7fb4ca", italic = true })
+        vim.api.nvim_set_hl(0, "@variable.parameter.jsdoc",     { fg = "#ffa066" })
+        vim.api.nvim_set_hl(0, "@property.jsdoc",               { fg = "#dcd7ba" })
+
+        vim.api.nvim_set_hl(0, "NormalFloat",  { bg = "NONE", fg = "#dcd7ba" })
+        vim.api.nvim_set_hl(0, "FloatBorder", { bg = "NONE", fg = "#54546d" })
+        vim.api.nvim_set_hl(0, "FloatTitle",  { bg = "NONE", fg = "#7e9cd8", bold = true })
+
         vim.api.nvim_set_hl(0, "DiagnosticUnderlineError",   { undercurl = true, sp = "#e46876" })
         vim.api.nvim_set_hl(0, "DiagnosticUnderlineWarn",    { undercurl = true, sp = "#ff9e3b" })
         vim.api.nvim_set_hl(0, "DiagnosticUnderlineInfo",    { undercurl = true, sp = "#7e9cd8" })
