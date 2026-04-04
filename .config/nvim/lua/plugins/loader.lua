@@ -1,74 +1,79 @@
-local config = require "plugins.config"
-local utils = require "plugins.utils"
-
 ---------------------------------------------------------------------------
 -- Install Package Manager
 ---------------------------------------------------------------------------
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
-    vim.fn.system({
-        "git",
-        "clone",
-        "--filter=blob:none",
-        "https://github.com/folke/lazy.nvim.git",
-        "--branch=stable",
-        lazypath,
-    })
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable",
+    lazypath,
+  })
 end
 
 vim.opt.rtp:prepend(lazypath)
 
 ---------------------------------------------------------------------------
--- Plugins Setup
+-- Dynamic Plugin Discovery
 ---------------------------------------------------------------------------
 
-local plugins = {}
+local function get_plugin_files(directory)
+  local plugins = {}
+  local plugin_dir = vim.fn.stdpath("config") .. "/lua/plugins/" .. directory
 
-for _, plugin in pairs(config) do
-    if plugin.set then
-        for _, repo_path in ipairs(plugin.set) do
-            table.insert(plugins, {
-                repo_path,
-                priority = plugin.priority,
-                enabled = plugin.enabled,
-                lazy = plugin.lazy,
-                event = plugin.event,
-                build = plugin.build,
-            })
-        end
-    else
-        table.insert(plugins, {
-            plugin.repo_path,
-            priority = plugin.priority,
-            enabled = plugin.enabled,
-            lazy = plugin.lazy,
-            event = plugin.event,
-            dependencies = plugin.dependencies,
-            build = plugin.build,
-            config = utils.setupPlugin(plugin.name, plugin.config, plugin.configFunc, plugin.artifacts)
-        })
-    end
+  if vim.fn.isdirectory(plugin_dir) == 0 then
+    return plugins
+  end
+
+  local files = vim.fn.glob(plugin_dir .. "/*.lua", false, true)
+
+  for _, file in ipairs(files) do
+    local filename = vim.fn.fnamemodify(file, ":t:r")
+    table.insert(plugins, { import = "plugins." .. directory .. "." .. filename })
+  end
+
+  return plugins
 end
 
--- TODO: Move it to a separate file
-local disabled_built_in_plugins = {
-    "gzip",
-    "matchit",
-    "matchparen",
-    "netrwPlugin",
-    "tarPlugin",
-    "tohtml",
-    "tutor",
-    "zipPlugin",
-    "shada",
-    "spellfile",
-    "rplugin",
-    "man",
-    "nvim"
+local plugin_categories = {
+  "ui",
+  "editor",
+  "navigation",
+  "lsp",
+  "ai",
 }
 
-require("lazy").setup(plugins, {
-    ui = { border = "rounded" },
-    performance = { rtp = { disabled_plugins = disabled_built_in_plugins } },
+local plugin_spec = {}
+
+for _, category in ipairs(plugin_categories) do
+  local category_plugins = get_plugin_files(category)
+  for _, plugin in ipairs(category_plugins) do
+    table.insert(plugin_spec, plugin)
+  end
+end
+
+---------------------------------------------------------------------------
+-- Plugin Setup with Dynamic Loading
+---------------------------------------------------------------------------
+
+local disabled_built_in_plugins = {
+  "gzip",
+  "tarPlugin",
+  "zipPlugin",
+  "tohtml",
+  "tutor",
+  "netrwPlugin",
+}
+
+require("lazy").setup({
+  spec = plugin_spec,
+  ui = { border = "rounded" },
+  performance = {
+    rtp = {
+      disabled_plugins = disabled_built_in_plugins,
+    },
+  },
 })

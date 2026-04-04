@@ -3,7 +3,7 @@ return {
     priority = 900,
     lazy = true,
     event = "VeryLazy",
-    dependencies = { "lewis6991/gitsigns.nvim" },
+    dependencies = {},
     config = function()
         local lualine = require("lualine")
         local custom_theme = require("lualine.themes.everforest")
@@ -45,7 +45,12 @@ return {
                         end,
                     },
                 },
-                lualine_b = { "diagnostics" },
+                lualine_b = {
+                    {
+                        "diagnostics",
+                        color = { bg = "NONE" },
+                    },
+                },
                 lualine_c = { "filename" },
                 lualine_x = { "branch" },
                 lualine_y = {},

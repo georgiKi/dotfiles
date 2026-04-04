@@ -15,8 +15,6 @@ return {
                 local client = vim.lsp.get_client_by_id(args.data.client_id)
                 local bufnr = args.buf
 
-                vim.diagnostic.config({ virtual_text = false })
-
                 if client and client.supports_method("textDocument/inlayHint") then
                     vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
                 end

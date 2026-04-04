@@ -32,5 +32,6 @@ return {
         vim.keymap.set("n", "<leader>fd", function() builtin.diagnostics() end,               { desc = "Workspace Diagnostics" })
         vim.keymap.set("n", "<leader>fs", function() builtin.lsp_document_symbols() end,      { desc = "Document Symbols" })
         vim.keymap.set("n", "<leader>fc", function() builtin.command_history(dropdown) end,   { desc = "Command History" })
+        vim.keymap.set("n", "<leader>/",  function() builtin.current_buffer_fuzzy_find(dropdown) end, { desc = "Search In Buffer" })
     end,
 }

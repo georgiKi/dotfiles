@@ -1,6 +1,5 @@
 return {
     "folke/which-key.nvim",
-    enabled = true,
     lazy = true,
     event = "VeryLazy",
     opts = {
@@ -10,7 +9,6 @@ return {
             breadcrumb = "»",
             separator = "→",
             group = " ",
-            rules = {},
             colors = true,
         },
         keys = {
@@ -33,5 +31,17 @@ return {
             wo = { winblend = 0 },
         },
         sort = { "local", "order", "group", "alphanum", "mod" },
-    }
+    },
+    config = function(_, opts)
+        local wk = require("which-key")
+        wk.setup(opts)
+
+        vim.api.nvim_set_hl(0, "WhichKey",          { fg = "#7e9cd8", bg = "NONE", bold = true })
+        vim.api.nvim_set_hl(0, "WhichKeyDesc",      { fg = "#dcd7ba", bg = "NONE" })
+        vim.api.nvim_set_hl(0, "WhichKeyGroup",     { fg = "#957fb8", bg = "NONE", bold = true })
+        vim.api.nvim_set_hl(0, "WhichKeySeparator", { fg = "#54546d", bg = "NONE" })
+        vim.api.nvim_set_hl(0, "WhichKeyFloat",     { bg = "NONE" })
+        vim.api.nvim_set_hl(0, "WhichKeyBorder",    { fg = "#54546d", bg = "NONE" })
+        vim.api.nvim_set_hl(0, "WhichKeyValue",     { fg = "#727169", bg = "NONE" })
+    end,
 }

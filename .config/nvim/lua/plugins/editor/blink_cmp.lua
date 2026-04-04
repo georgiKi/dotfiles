@@ -15,6 +15,13 @@ return {
             ["<S-Tab>"] = { "select_prev", "fallback" },
         },
         cmdline = { enabled = false },
+        enabled = function()
+            local ft = vim.bo.filetype
+            local bt = vim.bo.buftype
+            if vim.tbl_contains({ "NvimTree", "nvimtree", "" }, ft) then return false end
+            if vim.tbl_contains({ "prompt", "nofile" }, bt) then return false end
+            return true
+        end,
         appearance = {
             use_nvim_cmp_as_default = true,
             nerd_font_variant = "mono",
@@ -30,14 +37,14 @@ return {
             menu = {
                 border = "rounded",
                 draw = { gap = 2 },
-                winhighlight = "Normal:CmpPmenu,FloatBorder:CmpPmenuBorder,CursorLine:PmenuSel,Search:None",
+                winhighlight = "Normal:BlinkCmpMenu,FloatBorder:BlinkCmpMenuBorder,CursorLine:BlinkCmpMenuSelection,Search:None",
             },
             documentation = {
                 auto_show = true,
                 window = {
                     scrollbar = false,
                     border = "rounded",
-                    winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:BlinkCmpDocCursorLine,Search:None",
+                    winhighlight = "Normal:BlinkCmpDoc,FloatBorder:BlinkCmpDocBorder,CursorLine:BlinkCmpDocCursorLine,Search:None",
                 },
             },
         },
