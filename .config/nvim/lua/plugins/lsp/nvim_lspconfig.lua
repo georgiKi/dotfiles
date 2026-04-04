@@ -29,7 +29,29 @@ return {
                 map("n", "gd", vim.lsp.buf.definition, "Go to definition")
                 map("n", "gD", vim.lsp.buf.declaration, "Go to declaration")
                 map("n", "gi", vim.lsp.buf.implementation, "Go to implementation")
-                map("n", "gr", vim.lsp.buf.references, "References")
+                map("n", "gr", function() require("telescope.builtin").lsp_references() end, "References")
+                map("n", "<leader>r", function()
+                    require("telescope.builtin").lsp_references(
+                        require("telescope.themes").get_ivy({
+                            layout_config = { height = 20 },
+                            path_display = { "truncate" },
+                            show_line = true,
+                            trim_text = true,
+                            include_declaration = false,
+                        })
+                    )
+                end, "References")
+                map("n", "<leader>R", function()
+                    require("telescope.builtin").grep_string(
+                        require("telescope.themes").get_ivy({
+                            word_match = "-w",
+                            layout_config = { height = 20 },
+                            path_display = { "truncate" },
+                            show_line = true,
+                            trim_text = true,
+                        })
+                    )
+                end, "Grep References")
                 map("n", "gy", vim.lsp.buf.type_definition, "Go to type definition")
                 map("n", "<leader>rn", vim.lsp.buf.rename, "Rename symbol")
                 map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, "Code action")
