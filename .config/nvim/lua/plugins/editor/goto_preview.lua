@@ -8,33 +8,42 @@ return {
             height = 25,
             border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
             default_mappings = false,
+            focus_on_open = true,
+            dismiss_on_move = false,
+            stack_floating_preview_windows = true,
         })
+
+        local split_win_stack = {}
+
+        local function cleanup_stack()
+            local valid = {}
+            for _, win in ipairs(split_win_stack) do
+                if vim.api.nvim_win_is_valid(win) then
+                    table.insert(valid, win)
+                end
+            end
+            split_win_stack = valid
+        end
 
         vim.keymap.set("n", "<leader>dd", require("goto-preview").goto_preview_definition, { desc = "Go To Definition" })
         vim.keymap.set("n", "<leader>db", require("goto-preview").close_all_win, { desc = "Close Preview" })
 
         vim.keymap.set("n", "<leader>dc", function()
-            for _, win in ipairs(vim.api.nvim_list_wins()) do
-                local ok, val = pcall(vim.api.nvim_win_get_var, win, "goto_preview_split")
-                if ok and val then
-                    vim.api.nvim_win_close(win, true)
-                end
+            cleanup_stack()
+            for _, win in ipairs(split_win_stack) do
+                vim.api.nvim_win_close(win, true)
             end
+            split_win_stack = {}
         end, { desc = "Close Definition Splits" })
 
         local function open_definition_in_split(buf, params)
             local origin_win = vim.api.nvim_get_current_win()
 
-            local split_wins = {}
-            for _, win in ipairs(vim.api.nvim_list_wins()) do
-                local ok, val = pcall(vim.api.nvim_win_get_var, win, "goto_preview_split")
-                if ok and val then
-                    table.insert(split_wins, win)
-                end
-            end
+            cleanup_stack()
 
-            if #split_wins > 0 then
-                vim.api.nvim_set_current_win(split_wins[#split_wins])
+            if #split_win_stack > 0 then
+                local last_win = split_win_stack[#split_win_stack]
+                vim.api.nvim_set_current_win(last_win)
                 vim.cmd("belowright split")
             else
                 vim.api.nvim_set_current_win(origin_win)
@@ -42,7 +51,7 @@ return {
             end
 
             local new_win = vim.api.nvim_get_current_win()
-            vim.api.nvim_win_set_var(new_win, "goto_preview_split", true)
+            table.insert(split_win_stack, new_win)
 
             vim.lsp.buf_request(buf, "textDocument/definition", params, function(err, result)
                 if err or not result or vim.tbl_isempty(result) then return end
