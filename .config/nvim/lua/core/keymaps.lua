@@ -47,9 +47,20 @@ utils.keymap("v", "<S-k>", ":m .-2<CR>==")
 -- Persist copied value in clipboard
 utils.keymap("v", "p", '"_dP')
 
+-- Delete current buffer
+utils.keymap("n", "<leader>x", ":bd<CR>", { desc = "Delete Buffer" })
+
 -- Open diagnostic float window
 utils.keymap(
     "n",
     "<leader>dt", "<cmd> lua vim.diagnostic.open_float(nil, {focus=false})<CR>",
     { desc = "Open Diagnostic Float" }
 )
+
+-- Session
+vim.keymap.set("n", "<leader>sr", function()
+    local config = require("core.config")
+    if config.restore_session then
+        config.restore_session()
+    end
+end, { desc = "Restore Session" })

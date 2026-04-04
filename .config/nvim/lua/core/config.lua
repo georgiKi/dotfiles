@@ -78,6 +78,38 @@ vim.api.nvim_create_autocmd("CursorMoved", {
     callback = function() vim.lsp.buf.clear_references() end,
 })
 
+-- Session management
+vim.opt.sessionoptions:remove("folds")
+local session_dir = vim.fn.stdpath("data") .. "/sessions/"
+vim.fn.mkdir(session_dir, "p")
+
+local function session_file()
+    local cwd = vim.fn.getcwd():gsub("/", "%%")
+    return session_dir .. cwd .. ".vim"
+end
+
+local M = {}
+
+M.restore_session = function()
+    local f = session_file()
+    if vim.fn.filereadable(f) == 1 then
+        local ok, tree_api = pcall(require, "nvim-tree.api")
+        if ok then tree_api.tree.close() end
+        pcall(vim.cmd, "source " .. vim.fn.fnameescape(f))
+        vim.notify("Session restored", vim.log.levels.INFO)
+    else
+        vim.notify("No session found for this directory", vim.log.levels.WARN)
+    end
+end
+
+vim.api.nvim_create_autocmd("VimLeavePre", {
+    callback = function()
+        local ok, tree_api = pcall(require, "nvim-tree.api")
+        if ok then tree_api.tree.close() end
+        vim.cmd("mksession! " .. vim.fn.fnameescape(session_file()))
+    end,
+})
+
 -- Fold settings
 vim.wo.foldmethod = "expr"
 vim.wo.foldexpr = "nvim_treesitter#foldexpr()"
@@ -87,3 +119,5 @@ vim.wo.fillchars = "fold: "
 vim.wo.foldnestmax = 3
 vim.wo.foldminlines = 1
 vim.wo.foldlevel = 99
+
+return M
