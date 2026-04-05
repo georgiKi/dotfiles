@@ -65,8 +65,9 @@ return {
           score_offset = 50,
         },
         snippets = {
-          min_keyword_length = 3,
-          score_offset = 1,
+          min_keyword_length = 1,
+          score_offset = 80,
+          opts = { friendly_snippets = true },
         },
       },
     },
