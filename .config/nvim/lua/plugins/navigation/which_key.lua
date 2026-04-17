@@ -8,8 +8,9 @@ return {
         icons = {
             breadcrumb = "»",
             separator = "→",
-            group = " ",
-            colors = true,
+            group = "",
+            colors = false,
+            mappings = false,
         },
         keys = {
             scroll_down = "<c-d>",

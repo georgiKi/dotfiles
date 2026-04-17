@@ -3,20 +3,19 @@ return {
   priority = 950,
   lazy = true,
   event = "VeryLazy",
-  tag = "v0.9.3",
   dependencies = { "windwp/nvim-ts-autotag", "nvim-treesitter/nvim-treesitter-context" },
   config = function()
+    vim.env.PATH = vim.env.PATH .. ":/opt/homebrew/bin"
     require("nvim-ts-autotag").setup()
-    require("nvim-treesitter.configs").setup({
-      ensure_installed = { "c", "c_sharp", "lua", "vim", "regex", "javascript", "typescript", "tsx", "css", "scss", "html", "json", "markdown", "markdown_inline", "jsdoc" },
-      sync_install = false,
-      auto_install = true,
-      ignore_install = {},
-      highlight = {
-        enable = true,
-        disable = { "c", "rust" },
-        additional_vim_regex_highlighting = { "html" },
-      },
+    require("nvim-treesitter").setup()
+    local install = require("nvim-treesitter.install")
+    local parsers = { "c", "c_sharp", "lua", "vim", "regex", "javascript", "typescript", "tsx", "css", "scss", "html",
+      "json", "markdown", "markdown_inline", "jsdoc" }
+    install.install(parsers, { skip_installed = true })
+    vim.api.nvim_create_autocmd("FileType", {
+      callback = function(args)
+        pcall(vim.treesitter.start, args.buf)
+      end,
     })
     require("treesitter-context").setup({
       max_lines = 3,

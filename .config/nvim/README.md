@@ -22,11 +22,12 @@ nvim
 
 | Tool | Install | Purpose |
 |------|---------|---------|
-| [Neovim](https://neovim.io) >= 0.11 | `brew install neovim` | Editor |
+| [Neovim](https://neovim.io) >= 0.12 | `brew install neovim` | Editor |
 | [Git](https://git-scm.com) | `brew install git` | Plugin manager & lazygit |
 | [Node.js](https://nodejs.org) >= 18 | `brew install node` | LSP servers |
 | [Rust](https://rustup.rs) | `curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs \| sh` | blink.cmp build |
 | [Cargo](https://doc.rust-lang.org/cargo) | Included with Rust | blink.cmp build |
+| [tree-sitter CLI](https://github.com/tree-sitter/tree-sitter) | `npm install -g tree-sitter-cli` | Parser compilation for nvim-treesitter |
 | [RipGrep](https://github.com/BurntSushi/ripgrep) | `brew install ripgrep` | Telescope live grep |
 | [fd](https://github.com/sharkdp/fd) | `brew install fd` | Telescope file finder |
 | [lazygit](https://github.com/jesseduffield/lazygit) | `brew install lazygit` | Git UI |
@@ -71,6 +72,9 @@ brew install neovim git node ripgrep fd lazygit sqlite stylua
 
 # Install Rust
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+# Install tree-sitter CLI (required for nvim-treesitter parser compilation)
+npm install -g tree-sitter-cli
 
 # Install global prettier (optional, project-local is preferred)
 npm install -g prettier

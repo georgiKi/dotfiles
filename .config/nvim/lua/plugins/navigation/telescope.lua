@@ -18,6 +18,22 @@ return {
                 layout_config = {
                     horizontal = { preview_width = 0.55 },
                 },
+                mappings = {
+                    i = {
+                        ["<CR>"] = function(bufnr)
+                            local action_state = require("telescope.actions.state")
+                            if action_state.get_selected_entry() == nil then return end
+                            require("telescope.actions").select_default(bufnr)
+                        end,
+                    },
+                    n = {
+                        ["<CR>"] = function(bufnr)
+                            local action_state = require("telescope.actions.state")
+                            if action_state.get_selected_entry() == nil then return end
+                            require("telescope.actions").select_default(bufnr)
+                        end,
+                    },
+                },
             },
         })
 
@@ -32,6 +48,10 @@ return {
         vim.keymap.set("n", "<leader>fd", function() builtin.diagnostics() end,               { desc = "Workspace Diagnostics" })
         vim.keymap.set("n", "<leader>fs", function() builtin.lsp_document_symbols() end,      { desc = "Document Symbols" })
         vim.keymap.set("n", "<leader>fc", function() builtin.command_history(dropdown) end,   { desc = "Command History" })
-        vim.keymap.set("n", "<leader>/",  function() builtin.current_buffer_fuzzy_find(dropdown) end, { desc = "Search In Buffer" })
+        vim.keymap.set("n", "<leader>/",  function()
+            if vim.api.nvim_buf_is_valid(vim.api.nvim_get_current_buf()) and vim.bo.buftype == "" then
+                builtin.current_buffer_fuzzy_find(dropdown)
+            end
+        end, { desc = "Search In Buffer" })
     end,
 }
