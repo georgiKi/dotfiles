@@ -14,7 +14,7 @@ return {
             float_opts = { border = "rounded" },
         })
 
-        vim.keymap.set("n", "<leader>g",  function() lazygit:toggle() end, { desc = "Lazygit" })
+        vim.keymap.set("n", "<leader>gg", function() lazygit:toggle() end, { desc = "Lazygit" })
         vim.keymap.set("n", "<leader>tt", "<cmd>ToggleTerm direction=float<cr>", { desc = "Toggle Terminal" })
         vim.keymap.set("t", "<Esc>",      "<cmd>ToggleTerm<cr>",                 { desc = "Close Terminal" })
     end,

@@ -39,7 +39,7 @@ return {
 
         local dropdown = themes.get_dropdown({ previewer = false })
 
-        vim.keymap.set("n", "<leader>f",  function() builtin.find_files(dropdown) end,        { desc = "Find File" })
+        vim.keymap.set("n", "<leader>ff", function() builtin.find_files(dropdown) end,        { desc = "Find File" })
         vim.keymap.set("n", "<leader>i",  function() builtin.live_grep() end,                 { desc = "Search Text" })
         vim.keymap.set("n", "<leader>fb", function() builtin.buffers(dropdown) end,           { desc = "Find Buffer" })
         vim.keymap.set("n", "<leader>fr", function() builtin.oldfiles(dropdown) end,          { desc = "Recent Files" })

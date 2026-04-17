@@ -5,6 +5,6 @@ return {
     opts = {},
     config = function(_, opts)
         require("reach").setup(opts)
-        vim.keymap.set("n", "<leader>b", "<cmd>ReachOpen buffers<cr>", { desc = "Reach Buffers" })
+        vim.keymap.set("n", "<leader>bb", "<cmd>ReachOpen buffers<cr>", { desc = "Reach Buffers" })
     end,
 }
