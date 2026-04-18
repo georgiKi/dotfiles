@@ -1,6 +1,7 @@
 return {
 	"sudo-tee/opencode.nvim",
-	lazy = false,
+	enabled = false,
+	lazy = true,
 	event = "VeryLazy",
 	dependencies = {
 		"nvim-lua/plenary.nvim",
