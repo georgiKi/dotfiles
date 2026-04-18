@@ -9,7 +9,8 @@ return {
     require("nvim-ts-autotag").setup()
     require("nvim-treesitter").setup()
     local install = require("nvim-treesitter.install")
-    local parsers = { "c", "c_sharp", "lua", "vim", "regex", "javascript", "typescript", "tsx", "css", "scss", "html",
+    local parsers = { "c", "c_sharp", "lua", "vim", "regex", "javascript", "typescript", "tsx", "svelte", "css", "scss",
+      "html",
       "json", "markdown", "markdown_inline", "jsdoc" }
     install.install(parsers, { skip_installed = true })
     vim.api.nvim_create_autocmd("FileType", {
