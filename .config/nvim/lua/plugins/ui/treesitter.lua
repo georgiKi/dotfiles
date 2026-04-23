@@ -10,6 +10,7 @@ return {
     require("nvim-treesitter").setup()
     local install = require("nvim-treesitter.install")
     local parsers = { "c", "c_sharp", "lua", "vim", "regex", "javascript", "typescript", "tsx", "css", "scss", "html",
+      "yaml",
       "json", "markdown", "markdown_inline", "jsdoc" }
     install.install(parsers, { skip_installed = true })
     vim.api.nvim_create_autocmd("FileType", {
