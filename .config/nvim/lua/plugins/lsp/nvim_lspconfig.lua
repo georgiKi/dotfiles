@@ -78,6 +78,14 @@ return {
     })
 
     vim.lsp.config("ts_ls", {
+      capabilities = vim.tbl_deep_extend("force", capabilities, {
+        textDocument = { documentHighlight = { dynamicRegistration = false } },
+      }),
+      init_options = {
+        tsserver = {
+          path = vim.fn.expand("~/.local/share/nvim/mason/packages/typescript-language-server/node_modules/typescript/lib"),
+        },
+      },
       settings = {
         typescript = {
           inlayHints = {

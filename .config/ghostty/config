@@ -3,8 +3,6 @@
 # This template file has been automatically created at the following
 # path since Ghostty couldn't find any existing config files on your system:
 #
-#   /Users/georgi_kirilov/Library/Application Support/com.mitchellh.ghostty/config
-#
 # The template does not set any default options, since Ghostty ships
 # with sensible defaults for all options. Users should only need to set
 # options that they want to change from the default.
@@ -20,7 +18,7 @@
 # # The config file consists of simple key-value pairs,
 # # separated by equals signs.
 
-window-padding-x = 0
+window-padding-x = 5
 window-padding-y = 0
 #
 # # Spacing around the equals sign does not matter.
@@ -43,8 +41,10 @@ window-padding-y = 0
 # # Just for example:
 # resize-overlay-duration = 4s 200ms
 
-theme = 3024 night
-background-opacity = 0.8
+# theme = 3024 night
+# cursor-color = fe82f3
+
+background-opacity = 0.95
 background-blur = true
 font-family = JetBrainsMono NFM
 font-size = 14.5
@@ -52,7 +52,33 @@ font-thicken = true
 window-inherit-font-size = false
 macos-titlebar-style = tabs
 gtk-titlebar = true
-gtk-adwaita = false
 cursor-style = block
-cursor-color = fe82f3
 auto-update = download
+
+gtk-wide-tabs = false
+
+macos-icon = custom
+macos-custom-icon = ~/.config/ghostty/kanagawa-wave.icns
+
+background = #101216
+foreground = #8b949e
+selection-background = #272c42
+selection-foreground = #c6c8d1
+cursor-color = #c6c8d1
+cursor-text = #161821
+palette = 0=#1e2132
+palette = 1=#e27878
+palette = 2=#b4be82
+palette = 3=#e2a478
+palette = 4=#84a0c6
+palette = 5=#a093c7
+palette = 6=#89b8c2
+palette = 7=#c6c8d1
+palette = 8=#6b7089
+palette = 9=#e98989
+palette = 10=#c0ca8e
+palette = 11=#e9b189
+palette = 12=#91acd1
+palette = 13=#ada0d3
+palette = 14=#95c4ce
+palette = 15=#d2d4de
