@@ -1,0 +1,25 @@
+name: Kanagawa Wave
+accent: "#7290C8"
+cursor: "#CDC6B0"
+background: "#181820"
+foreground: "#CDC6B0"
+details: darker
+terminal_colors:
+  bright:
+    black: "#686660"
+    blue: "#74A8BE"
+    cyan: "#709C92"
+    green: "#8EB064"
+    magenta: "#8A80A0"
+    red: "#DC2020"
+    white: "#CDC6B0"
+    yellow: "#D8B878"
+  normal:
+    black: "#121218"
+    blue: "#7290C8"
+    cyan: "#628A7E"
+    green: "#6E8A62"
+    magenta: "#8875A8"
+    red: "#B83A3E"
+    white: "#CDC6B0"
+    yellow: "#D09A58"
